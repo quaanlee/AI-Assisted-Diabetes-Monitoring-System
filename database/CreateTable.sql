@@ -101,6 +101,8 @@ CREATE TABLE [Lab_Test_Catalog] (
     LabTestID VARCHAR(50) PRIMARY KEY,
     TestName NVARCHAR(100) UNIQUE,
     Unit NVARCHAR(20), -- đơn vị mô tả
+	MinValue INT,
+    MaxValue INT,
     Description NVARCHAR(MAX)
 );
 
