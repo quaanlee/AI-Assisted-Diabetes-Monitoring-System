@@ -3,272 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký tài khoản</title>
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-    <!-- CSS dùng chung -->
+    <title>Đăng ký - Diabetes Care System</title>
     <link rel="stylesheet" href="/static/css/pages/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
-
 <body>
-
-<div class="container register-container">
-
-    <!-- LEFT PANEL -->
-    <div class="left-panel">
-
-        <div>
+<div class="container">
+    <div class="portal-wrapper">
+        <div class="left-panel">
             <div class="logo">
-                <i class="fa-solid fa-droplet"></i>
-                <h2>Diabetes Care System</h2>
+                <i class="fas fa-droplet"></i>
+                <span>Diabetes Care System</span>
             </div>
+            <h1>Diabetes Care System</h1>
+            <h2>Tạo tài khoản mới</h2>
+            <p class="subtitle">Đăng ký để quản lý hồ sơ bệnh tiểu đường.</p>
 
-            <div class="welcome">
-                <h1>Diabetes Care System</h1>
-
-                <h2>Tạo tài khoản mới</h2>
-
-                <p>
-                    Đăng ký để quản lý hồ sơ bệnh tiểu đường.
-                </p>
+            <div class="feature-card">
+                <h3><i class="fas fa-shield-alt"></i> Bảo vệ sức khỏe toàn diện</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Theo dõi chỉ số đường huyết</li>
+                    <li><i class="fas fa-check-circle"></i> Nhắc lịch uống thuốc</li>
+                    <li><i class="fas fa-check-circle"></i> Tư vấn dinh dưỡng</li>
+                    <li><i class="fas fa-check-circle"></i> Kết nối với bác sĩ</li>
+                </ul>
             </div>
         </div>
 
-    </div>
+        <div class="right-panel">
+            <div class="register-form">
+                <h2>Đăng ký tài khoản</h2>
 
-    <!-- RIGHT PANEL -->
-    <div class="right-panel register-panel">
+                <div id="errorMsg" class="error-message" style="display: none;"></div>
+                <div id="successMsg" class="success-message" style="display: none;"></div>
 
-        <div class="login-box register-box">
-
-            <h1>Đăng ký tài khoản</h1>
-
-            <!-- ACCOUNT TYPE -->
-            <div class="input-group">
-
-                <label>Loại tài khoản <span>*</span></label>
-
-                <div class="input-field">
-                    <i class="fa-solid fa-user-group"></i>
-
-                    <select>
-                        <option>Bệnh nhân</option>
-                        <option>Bác sĩ</option>
-                        <option>Người thân</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <!-- FULL NAME -->
-            <div class="input-group">
-
-                <label>Họ và tên <span>*</span></label>
-
-                <div class="input-field">
-                    <i class="fa-solid fa-user"></i>
-
-                    <input type="text" placeholder="Nguyễn Văn A">
-                </div>
-
-            </div>
-
-            <!-- PHONE -->
-            <div class="input-group">
-
-                <label>Số điện thoại <span>*</span></label>
-
-                <div class="input-field">
-                    <i class="fa-solid fa-phone"></i>
-
-                    <input type="text" placeholder="0912 345 678">
-                </div>
-
-            </div>
-
-            <!-- PASSWORD -->
-            <div class="input-group">
-
-                <label>Mật khẩu <span>*</span></label>
-
-                <div class="input-field">
-                    <i class="fa-solid fa-lock"></i>
-
-                    <input type="password" placeholder="••••••••">
-                </div>
-
-            </div>
-
-            <!-- CONFIRM PASSWORD -->
-            <div class="input-group">
-
-                <label>Xác nhận mật khẩu <span>*</span></label>
-
-                <div class="input-field">
-                    <i class="fa-solid fa-circle-check"></i>
-
-                    <input type="password" placeholder="••••••••">
-                </div>
-
-            </div>
-
-            <!-- ROW -->
-            <div class="form-row">
-
-                <!-- BIRTH -->
-                <div class="input-group">
-
-                    <label>Ngày sinh</label>
-
-                    <div class="input-field">
-                        <i class="fa-solid fa-calendar"></i>
-
-                        <input type="date">
-                    </div>
-
-                </div>
-
-                <!-- GENDER -->
-                <div class="input-group">
-
-                    <label>Giới tính</label>
-
-                    <div class="input-field">
-                        <i class="fa-solid fa-venus-mars"></i>
-
-                        <select>
-                            <option>Chọn</option>
-                            <option>Nam</option>
-                            <option>Nữ</option>
+                <form id="registerForm">
+                    <!-- Loại tài khoản -->
+                    <div class="input-group">
+                        <label for="role">Loại tài khoản <span class="required">*</span></label>
+                        <select id="role" required>
+                            <option value="PAT">Bệnh nhân</option>
+                            <option value="DOC">Bác sĩ / Nhân viên y tế</option>
                         </select>
+                        <i class="fas fa-user-tag input-icon"></i>
                     </div>
 
-                </div>
-
-            </div>
-
-            <!-- ROW -->
-            <div class="form-row">
-
-                <!-- HEIGHT -->
-                <div class="input-group">
-
-                    <label>Chiều cao (cm)</label>
-
-                    <div class="input-field">
-                        <i class="fa-solid fa-ruler"></i>
-
-                        <input type="text" placeholder="VD: 165">
+                    <!-- Họ tên -->
+                    <div class="input-group">
+                        <label for="fullName">Họ và tên <span class="required">*</span></label>
+                        <input type="text" id="fullName" placeholder="Nguyễn Văn A" required>
+                        <i class="fas fa-user input-icon"></i>
                     </div>
 
-                </div>
-
-                <!-- WEIGHT -->
-                <div class="input-group">
-
-                    <label>Cân nặng (kg)</label>
-
-                    <div class="input-field">
-                        <i class="fa-solid fa-weight-scale"></i>
-
-                        <input type="text" placeholder="VD: 65.5">
+                    <!-- Số điện thoại (dùng làm tài khoản) -->
+                    <div class="input-group">
+                        <label for="phoneNumber">Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" id="phoneNumber" placeholder="0912 345 678" required>
+                        <i class="fas fa-phone input-icon"></i>
+                        <div class="error-hint" id="phoneHint">Số điện thoại phải có 10-11 số</div>
                     </div>
 
-                </div>
+                    <!-- Mật khẩu -->
+                    <div class="input-group">
+                        <label for="password">Mật khẩu <span class="required">*</span></label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                        <i class="fas fa-lock input-icon"></i>
+                        <div class="error-hint" id="passwordHint">Mật khẩu phải có ít nhất 6 ký tự</div>
+                    </div>
 
-            </div>
+                    <!-- Xác nhận mật khẩu -->
+                    <div class="input-group">
+                        <label for="confirmPassword">Xác nhận mật khẩu <span class="required">*</span></label>
+                        <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                        <i class="fas fa-check-circle input-icon"></i>
+                        <div class="error-hint" id="confirmHint">Mật khẩu xác nhận không khớp</div>
+                    </div>
 
-            <!-- ADDRESS -->
-            <div class="input-group">
+                    <!-- Thông tin Bệnh nhân (mặc định hiện) -->
+                    <div id="patientFields">
+                        <div class="row-3">
+                            <div class="input-group">
+                                <label for="dob">Ngày sinh</label>
+                                <input type="date" id="dob">
+                                <i class="fas fa-calendar-alt input-icon"></i>
+                            </div>
+                            <div class="input-group">
+                                <label for="gender">Giới tính</label>
+                                <select id="gender">
+                                    <option value="">Chọn</option>
+                                    <option value="0">Nam</option>
+                                    <option value="1">Nữ</option>
+                                </select>
+                                <i class="fas fa-venus-mars input-icon"></i>
+                            </div>
+                            <div class="input-group">
+                                <label for="bloodGroup">Nhóm máu</label>
+                                <select id="bloodGroup">
+                                    <option value="">Chọn</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                                <i class="fas fa-tint input-icon"></i>
+                            </div>
+                        </div>
+                        <div class="row-2">
+                            <div class="input-group">
+                                <label for="height">Chiều cao (cm)</label>
+                                <input type="number" id="height" placeholder="VD: 165">
+                                <i class="fas fa-ruler input-icon"></i>
+                            </div>
+                            <div class="input-group">
+                                <label for="weight">Cân nặng (kg)</label>
+                                <input type="number" step="0.1" id="weight" placeholder="VD: 65.5">
+                                <i class="fas fa-weight-scale input-icon"></i>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" id="address" placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                        </div>
+                        <div class="input-group">
+                            <label for="medicalHistory">Tiền sử bệnh</label>
+                            <textarea id="medicalHistory" rows="2" style="width:100%; padding:12px; border:2px solid #e2e8f0; border-radius:12px;" placeholder="Các bệnh lý nền, tiền sử gia đình..."></textarea>
+                            <i class="fas fa-notes-medical input-icon" style="top: 45px;"></i>
+                        </div>
+                        <div class="input-group">
+                            <label for="allergyNotes">Dị ứng</label>
+                            <input type="text" id="allergyNotes" placeholder="Thuốc, thực phẩm...">
+                            <i class="fas fa-allergies input-icon"></i>
+                        </div>
+                    </div>
 
-                <label>Địa chỉ</label>
+                    <!-- Thông tin Bác sĩ (ẩn mặc định) -->
+                    <div id="doctorFields" style="display: none;">
+                        <div class="input-group">
+                            <label for="specialty">Chuyên khoa</label>
+                            <input type="text" id="specialty" placeholder="VD: Nội tiết, Tim mạch...">
+                            <i class="fas fa-stethoscope input-icon"></i>
+                        </div>
+                        <div class="input-group">
+                            <label for="licenseNumber">Số chứng chỉ hành nghề</label>
+                            <input type="text" id="licenseNumber" placeholder="Mã số chứng chỉ">
+                            <i class="fas fa-id-card input-icon"></i>
+                        </div>
+                    </div>
 
-                <div class="input-field">
-                    <i class="fa-solid fa-location-dot"></i>
+                    <!-- Điều khoản -->
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Tôi đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a>.</label>
+                    </div>
 
-                    <input type="text"
-                           placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố">
-                </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> ĐĂNG KÝ TÀI KHOẢN
+                    </button>
+                </form>
 
-            </div>
-
-            <!-- HISTORY -->
-            <div class="input-group">
-
-                <label>Tiền sử bệnh</label>
-
-                <div class="textarea-field">
-                        <textarea
-                                placeholder="Các bệnh lý nền, tiền sử gia đình..."></textarea>
-                </div>
-
-            </div>
-
-            <!-- ALLERGY -->
-            <div class="input-group">
-
-                <label>Dị ứng</label>
-
-                <div class="input-field">
-                    <i class="fa-solid fa-hand"></i>
-
-                    <input type="text"
-                           placeholder="Thuốc, thực phẩm...">
-                </div>
-
-            </div>
-
-            <!-- CHECKBOX -->
-            <div class="checkbox-group">
-
-                <input type="checkbox">
-
-                <p>
-                    Tôi đồng ý với
-                    <a href="#">Điều khoản sử dụng</a>
-                    và
-                    <a href="#">Chính sách bảo mật</a>.
+                <p class="login-link">
+                    Đã có tài khoản? <a href="/templates/auth/login.html">Đăng nhập ngay</a>
                 </p>
-
             </div>
 
-            <!-- BUTTON -->
-            <button class="login-btn">
-                <i class="fa-solid fa-user-plus"></i>
-                ĐĂNG KÝ TÀI KHOẢN
-            </button>
-
-            <!-- LOGIN -->
-            <p class="register">
-                Đã có tài khoản?
-                <a href="index.html">Đăng nhập ngay</a>
-            </p>
-
+            <footer>
+                <div class="footer-links">
+                    <a href="#">Chính sách bảo mật</a> |
+                    <a href="#">Điều khoản sử dụng</a> |
+                    <a href="#">Hỗ trợ</a>
+                </div>
+            </footer>
         </div>
-
-        <!-- FOOTER -->
-        <div class="footer">
-
-            <div class="footer-links">
-                <a href="#">Chính sách bảo mật</a>
-
-                <span>|</span>
-
-                <a href="#">Điều khoản sử dụng</a>
-
-                <span>|</span>
-
-                <a href="#">Hỗ trợ</a>
-            </div>
-
-        </div>
-
     </div>
-
 </div>
 
+<script>
+    const roleSelect = document.getElementById('role');
+    const patientFields = document.getElementById('patientFields');
+    const doctorFields = document.getElementById('doctorFields');
+    const phoneInput = document.getElementById('phoneNumber');
+    const passwordInput = document.getElementById('password');
+    const confirmInput = document.getElementById('confirmPassword');
+    const phoneHint = document.getElementById('phoneHint');
+    const passwordHint = document.getElementById('passwordHint');
+    const confirmHint = document.getElementById('confirmHint');
+
+    // Hiển thị form theo role
+    roleSelect.addEventListener('change', function() {
+        if (this.value === 'DOC') {
+            patientFields.style.display = 'none';
+            doctorFields.style.display = 'block';
+        } else {
+            patientFields.style.display = 'block';
+            doctorFields.style.display = 'none';
+        }
+    });
+
+    // Validate phone
+    phoneInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+        if (this.value.length > 0 && (this.value.length < 10 || this.value.length > 11)) {
+            phoneHint.style.display = 'block';
+            this.classList.add('error');
+        } else {
+            phoneHint.style.display = 'none';
+            this.classList.remove('error');
+        }
+    });
+
+    // Validate password
+    passwordInput.addEventListener('input', function() {
+        if (this.value.length > 0 && this.value.length < 6) {
+            passwordHint.style.display = 'block';
+            this.classList.add('error');
+        } else {
+            passwordHint.style.display = 'none';
+            this.classList.remove('error');
+        }
+        if (confirmInput.value.length > 0 && confirmInput.value !== this.value) {
+            confirmHint.style.display = 'block';
+            confirmInput.classList.add('error');
+        } else {
+            confirmHint.style.display = 'none';
+            confirmInput.classList.remove('error');
+        }
+    });
+
+    confirmInput.addEventListener('input', function() {
+        if (this.value !== passwordInput.value) {
+            confirmHint.style.display = 'block';
+            this.classList.add('error');
+        } else {
+            confirmHint.style.display = 'none';
+            this.classList.remove('error');
+        }
+    });
+
+    // Submit
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const roleId = document.getElementById('role').value;
+        const fullName = document.getElementById('fullName').value.trim();
+        const phoneNumber = phoneInput.value.trim();
+        const password = passwordInput.value;
+        const confirmPassword = confirmInput.value;
+        const terms = document.getElementById('terms').checked;
+
+        const errorDiv = document.getElementById('errorMsg');
+        const successDiv = document.getElementById('successMsg');
+
+        errorDiv.style.display = 'none';
+        successDiv.style.display = 'none';
+
+        if (!fullName) {
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = 'Vui lòng nhập họ và tên!';
+            return;
+        }
+        if (!phoneNumber || phoneNumber.length < 10) {
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = 'Số điện thoại không hợp lệ!';
+            return;
+        }
+        if (!password || password.length < 6) {
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = 'Mật khẩu phải có ít nhất 6 ký tự!';
+            return;
+        }
+        if (password !== confirmPassword) {
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = 'Mật khẩu xác nhận không khớp!';
+            return;
+        }
+        if (!terms) {
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = 'Vui lòng đồng ý với Điều khoản sử dụng!';
+            return;
+        }
+
+        const userData = {
+            roleId: roleId,
+            fullName: fullName,
+            phoneNumber: phoneNumber,
+            password: password
+        };
+
+        if (roleId === 'PAT') {
+            userData.dob = document.getElementById('dob').value;
+            userData.gender = document.getElementById('gender').value;
+            userData.bloodGroup = document.getElementById('bloodGroup').value;
+            userData.height = document.getElementById('height').value;
+            userData.weight = document.getElementById('weight').value;
+            userData.address = document.getElementById('address').value;
+            userData.medicalHistory = document.getElementById('medicalHistory').value;
+            userData.allergyNotes = document.getElementById('allergyNotes').value;
+        } else {
+            userData.specialty = document.getElementById('specialty').value;
+            userData.licenseNumber = document.getElementById('licenseNumber').value;
+        }
+
+        try {
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                successDiv.style.display = 'block';
+                successDiv.textContent = 'Đăng ký thành công! Chuyển hướng đến trang đăng nhập...';
+                setTimeout(() => {
+                    window.location.href = '/login.html';
+                }, 2000);
+            } else {
+                errorDiv.style.display = 'block';
+                errorDiv.textContent = data.message || 'Đăng ký thất bại!';
+            }
+        } catch (error) {
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = 'Lỗi kết nối server!';
+        }
+    });
+</script>
 </body>
 </html>
