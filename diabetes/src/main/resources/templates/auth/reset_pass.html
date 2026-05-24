@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt lại mật khẩu - Diabetes Care System</title>
+    <link rel="stylesheet" href="/static/css/pages/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="portal-wrapper login">
+        <div class="left-panel">
+            <div class="logo">
+                <i class="fas fa-droplet"></i>
+                <span>Diabetes Care System</span>
+            </div>
+            <h1>Tạo mật khẩu mới</h1>
+            <p class="subtitle">Đảm bảo mật khẩu của bạn đủ mạnh để bảo vệ an toàn cho các dữ liệu y tế nhạy cảm.</p>
+
+            <div class="feature-card">
+                <h3><i class="fas fa-lightbulb"></i> Mật khẩu mạnh</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Có ít nhất 8 ký tự</li>
+                    <li><i class="fas fa-check-circle"></i> Bao gồm chữ hoa và chữ thường</li>
+                    <li><i class="fas fa-check-circle"></i> Chứa ít nhất một chữ số</li>
+                    <li><i class="fas fa-check-circle"></i> Chứa ký tự đặc biệt (!@#$)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="login-form">
+                <h2>Đặt lại mật khẩu</h2>
+                <div id="errorMsg" class="error-message" style="display: none;"></div>
+                <div id="successMsg" class="success-message" style="display: none;"></div>
+                
+                <form id="resetPasswordForm" action="/templates/auth/login.html" method="get">
+                    <div class="input-group">
+                        <label for="newPassword">Mật khẩu mới <span class="required">*</span></label>
+                        <input type="password" id="newPassword" placeholder="••••••••" required>
+                        <i class="fas fa-lock input-icon"></i>
+                        <i class="fas fa-eye password-toggle" id="togglePswd" aria-label="Hiện mật khẩu" role="button"></i>
+                        <div class="password-strength-container" id="strengthContainer">
+                            <div class="strength-lines" id="strengthLines">
+                                <div class="line" id="line1"></div>
+                                <div class="line" id="line2"></div>
+                                <div class="line" id="line3"></div>
+                            </div>
+                            <span class="strength-text" id="strengthText">Độ mạnh mật khẩu</span>
+                        </div>
+                        <div class="error-hint" id="passwordHint">Mật khẩu phải có ít nhất 6 ký tự</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="confirmPassword">Xác nhận mật khẩu mới <span class="required">*</span></label>
+                        <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                        <i class="fas fa-check-circle input-icon"></i>
+                        <i class="fas fa-eye password-toggle" id="toggleConfirm" aria-label="Hiện mật khẩu" role="button"></i>
+                        <div class="error-hint" id="confirmHint">Mật khẩu xác nhận không khớp</div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary" style="margin-top: 10px;">
+                        Cập nhật mật khẩu <i class="fas fa-save" style="margin-left: 8px;"></i>
+                    </button>
+                </form>
+            </div>
+            <footer>
+                <p>© 2024 Diabetes Care System - Giải pháp quản lý bệnh tiểu đường</p>
+                <div class="footer-links">
+                    <a href="#">Chính sách bảo mật</a> |
+                    <a href="#">Điều khoản sử dụng</a> |
+                    <a href="#">Hỗ trợ</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script>
+    const newPassword = document.getElementById('newPassword');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const passwordHint = document.getElementById('passwordHint');
+    const confirmHint = document.getElementById('confirmHint');
+    
+    // Toggle password visibility
+    function setupToggle(inputId, toggleId) {
+        const toggle = document.getElementById(toggleId);
+        const input = document.getElementById(inputId);
+        toggle.addEventListener('click', () => {
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.classList.remove('fa-eye');
+                toggle.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                toggle.classList.add('fa-eye');
+                toggle.classList.remove('fa-eye-slash');
+            }
+        });
+    }
+    
+    setupToggle('newPassword', 'togglePswd');
+    setupToggle('confirmPassword', 'toggleConfirm');
+
+    // Password strength minimal logic
+    const strengthContainer = document.getElementById('strengthContainer');
+    const line1 = document.getElementById('line1');
+    const line2 = document.getElementById('line2');
+    const line3 = document.getElementById('line3');
+    const strengthText = document.getElementById('strengthText');
+
+    newPassword.addEventListener('input', function() {
+        const val = this.value;
+        
+        if(val.length > 0) {
+            strengthContainer.style.display = 'block';
+        } else {
+            strengthContainer.style.display = 'none';
+        }
+        
+        let strength = 0;
+        if(val.length >= 6) strength += 1;
+        if(val.match(/[a-z]/) && val.match(/[A-Z]/)) strength += 1;
+        if(val.match(/\d/) && val.match(/[^a-zA-Z\d]/)) strength += 1;
+
+        // Reset
+        [line1, line2, line3].forEach(el => el.className = 'line');
+
+        // Strong
+        if(strength === 3) {
+            line1.classList.add('strong');
+            line2.classList.add('strong');
+            line3.classList.add('strong');
+            strengthText.textContent = "Mạnh";
+            strengthText.style.color = "#10b981";
+        } 
+        // Medium
+        else if(strength === 2) {
+            line1.classList.add('medium');
+            line2.classList.add('medium');
+            strengthText.textContent = "Trung bình";
+            strengthText.style.color = "#f59e0b";
+        } 
+        // Weak
+        else if(strength === 1 || val.length > 0) {
+            line1.classList.add('weak');
+            strengthText.textContent = "Yếu";
+            strengthText.style.color = "#ef4444";
+        }
+
+        // Validate rules
+        if (val.length > 0 && val.length < 6) {
+            passwordHint.style.display = 'block';
+            this.classList.add('error');
+        } else {
+            passwordHint.style.display = 'none';
+            this.classList.remove('error');
+        }
+        
+        // Match confirm
+        if (confirmPassword.value.length > 0 && confirmPassword.value !== val) {
+            confirmHint.style.display = 'block';
+            confirmPassword.classList.add('error');
+        } else {
+            confirmHint.style.display = 'none';
+            confirmPassword.classList.remove('error');
+        }
+    });
+
+    confirmPassword.addEventListener('input', function() {
+        if (this.value !== newPassword.value) {
+            confirmHint.style.display = 'block';
+            this.classList.add('error');
+        } else {
+            confirmHint.style.display = 'none';
+            this.classList.remove('error');
+        }
+    });
+
+    document.getElementById('resetPasswordForm').addEventListener('submit', (e) => {
+        // e.preventDefault();
+        // Perform backend request
+        // For demonstration purposes, it will navigate to login.html
+    });
+</script>
+</body>
+</html>

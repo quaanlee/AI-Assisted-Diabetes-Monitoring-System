@@ -407,3 +407,94 @@ footer {
         font-size: 14px;
     }
 }
+
+/* ========== OTP & PASSWORD FORGOT OVERRIDES ========== */
+.otp-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0 30px;
+}
+
+.otp-input {
+    width: 50px;
+    height: 60px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    transition: all 0.3s;
+    background: white;
+}
+
+.otp-input:focus {
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.resend-wrapper {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.resend-wrapper span {
+    color: #64748b;
+}
+
+.resend-wrapper a {
+    color: #059669;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.resend-wrapper a:hover {
+    text-decoration: underline;
+}
+
+/* Password View Toggle */
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 42px;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.password-toggle:hover {
+    color: #334155;
+}
+
+/* Password Strength Indicator */
+.password-strength-container {
+    margin-top: 10px;
+    display: none;
+}
+
+.strength-lines {
+    display: flex;
+    gap: 5px;
+    height: 6px;
+    margin-bottom: 6px;
+}
+
+.strength-lines .line {
+    flex: 1;
+    background-color: #e2e8f0;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.strength-lines .line.weak { background-color: #ef4444; }
+.strength-lines .line.medium { background-color: #f59e0b; }
+.strength-lines .line.strong { background-color: #10b981; }
+
+.strength-text {
+    font-size: 12px;
+    font-weight: 500;
+}
